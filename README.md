@@ -1,71 +1,12 @@
 # statusbartestextension README
 
-This is the README for your extension "statusbartestextension". After writing up a brief description, we recommend including the following sections.
+To activate extension 
+![image](https://user-images.githubusercontent.com/72294477/219770806-6056e523-d87a-4a6b-b73b-a39e334f0edb.png)
 
-## Features
+Update Network 
+![image](https://user-images.githubusercontent.com/72294477/219770996-9558f8d0-a173-40ac-9751-848d6dea4772.png)
+![image](https://user-images.githubusercontent.com/72294477/219771098-3050916e-429a-47dc-9ea9-7c90bcec732e.png)
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Update Account 
+![image](https://user-images.githubusercontent.com/72294477/219771231-94397a8c-79d7-492c-8e4b-a9bcbdf58d62.png)
+![image](https://user-images.githubusercontent.com/72294477/219771369-e7bfebce-b605-4cb8-8c75-8c19228eda7d.png)
