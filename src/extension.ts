@@ -1,45 +1,77 @@
 import * as vscode from 'vscode';
+import { getAddress } from '@ethersproject/address'
 
-let myStatusBarItem: vscode.StatusBarItem;
+let network: vscode.StatusBarItem;
+let account: vscode.StatusBarItem;
 
 let ethcodeExtension: any = vscode.extensions.getExtension('7finney.ethcode');
 let api = ethcodeExtension.exports;
 
+let localnetwork: string;
+let localaccount: string;
+
+
 export function activate({ subscriptions }: vscode.ExtensionContext) {
-	
+
 	console.log('Congratulations, your extension "statusbartestextension" is now active!');
 
 	const myCommandId = 'statusbartestextension.showSelectionCount';
 	subscriptions.push(vscode.commands.registerCommand(myCommandId, () => {
-		const n = getNumberOfSelectedLines(vscode.window.activeTextEditor);
-		vscode.window.showInformationMessage(`Yeah, ${n} line(s) selected... Keep going!`);
+		vscode.window.showInformationMessage(`${api.status()}`);
 	}));
 
-	myStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-	myStatusBarItem.command = myCommandId;
-	subscriptions.push(myStatusBarItem);
+	// Network
+	network = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+	network.command = myCommandId;
+	subscriptions.push(network);
 
-	subscriptions.push(vscode.window.onDidChangeActiveTextEditor(updateStatusBarItem));
-	subscriptions.push(vscode.window.onDidChangeTextEditorSelection(updateStatusBarItem));
+	api.env.ethcode.network.event(
+		(network: string) => {
+			vscode.window.showInformationMessage(`Network : ${network} `);
+			localnetwork = network;
+			updateStatusBarNetwork();
+		}
+	);
+	updateStatusBarNetwork();
 
-	updateStatusBarItem();
+	// Account
+	account = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right,100);
+	account.command = myCommandId;
+	subscriptions.push(account);
+
+	api.env.ethcode.account.event(
+		(account: string) => {
+			vscode.window.showInformationMessage(`Account : ${account} `);
+			localaccount = account;
+			updateStatusBarAccount();
+		}
+	);
+	updateStatusBarAccount();
+
 }
 
-
-function updateStatusBarItem(): void {
-	const n = getNumberOfSelectedLines(vscode.window.activeTextEditor);
-	if (n > 0) {
-		myStatusBarItem.text = `${n} line(s) selected ${api.status()}`;
-		myStatusBarItem.show();
-	} else {
-		myStatusBarItem.hide();
+function isAddress(value: any): string | false {
+	try {
+	  return getAddress(value)
+	} catch {
+	  return false
 	}
+  }
+  
+function shortenAddress(address: string, chars = 4): string {
+	const parsed = isAddress(address)
+	if (!parsed) {
+		throw Error(`Invalid 'address' parameter '${address}'.`)
+	}
+	return `${parsed.substring(0, chars + 2)}...${parsed.substring(42 - chars)}`
 }
 
-function getNumberOfSelectedLines(editor: vscode.TextEditor | undefined): number {
-	let lines = 0;
-	if (editor) {
-		lines = editor.selections.reduce((prev, curr) => prev + (curr.end.line - curr.start.line), 0);
-	}
-	return lines;
+function updateStatusBarNetwork(): void {
+	network.text = `( Ethcode ) Network : ${localnetwork}`;
+	network.show();
+}
+
+function updateStatusBarAccount(): void {
+	network.text = `( Ethcode ) Account : ${shortenAddress(localaccount)}`;
+	network.show();
 }
