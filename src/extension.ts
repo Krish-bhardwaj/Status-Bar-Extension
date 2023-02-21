@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { getAddress } from '@ethersproject/address'
-
+import { ethers } from 'ethers';
 let network: vscode.StatusBarItem;
 let account: vscode.StatusBarItem;
 
@@ -25,10 +25,17 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 	network.command = myCommandId;
 	subscriptions.push(network);
 
-	api.env.ethcode.network.event(
-		(network: string) => {
+	api.ethcode.network.event(
+		async (network: string) => {
+			const getCurrentNetwork = api.provider.network.get().chainID
+			
 			vscode.window.showInformationMessage(`Network : ${network} `);
+			
+			
+			vscode.window.showInformationMessage(getCurrentNetwork)
+			
 			localnetwork = network;
+			
 			updateStatusBarNetwork();
 		}
 	);
@@ -38,8 +45,7 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 	account = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right,100);
 	account.command = myCommandId;
 	subscriptions.push(account);
-
-	api.env.ethcode.account.event(
+api.ethcode.account.event(
 		(account: string) => {
 			vscode.window.showInformationMessage(`Account : ${account} `);
 			localaccount = account;
